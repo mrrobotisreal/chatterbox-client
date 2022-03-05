@@ -7,7 +7,19 @@ var Messages = {
   // TODO: Define how you want to store your messages.
   _data: null,
 
-  // TODO: Define methods which allow you to retrieve from,
-  // add to, and generally interact with the messages.
+  add: function (message) {
+    if (this._data === null) {
+      this._data = [message];
+
+    } else {
+      if (!this._data.includes(message.message_id)) {
+        this._data.push(message);
+      }
+    }
+  },
+
+  size: function () {
+    return this._data.length;
+  }
 
 };

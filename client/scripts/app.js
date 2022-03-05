@@ -19,6 +19,8 @@ var App = {
     App.startSpinner();
     App.fetch(App.stopSpinner);
 
+
+    RoomsView.handleChange();
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
   },
@@ -27,9 +29,19 @@ var App = {
     Parse.readAll((data) => {
       // examine the response from the server request:
       console.log(data);
-
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
+
+      data.forEach(item=>{
+        item.roomname = item.roomname || 'anonymous';
+        item.username = item.username || 'anonymous';
+        Messages.add(item);
+        Rooms.add(item.roomname);
+      });
+
+      callback();
+      MessagesView.render();
+      RoomsView.render();
     });
   },
 
@@ -43,3 +55,4 @@ var App = {
     FormView.setStatus(false);
   }
 };
+
